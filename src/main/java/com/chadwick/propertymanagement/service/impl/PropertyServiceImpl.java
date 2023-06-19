@@ -9,6 +9,9 @@ import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 //Singleton
 @Service
 public class PropertyServiceImpl implements PropertyService {
@@ -24,4 +27,16 @@ public class PropertyServiceImpl implements PropertyService {
         propertyDTO = propertyConverter.EntitytoDTO(propertyEntity);
         return propertyDTO;
     }
+
+    @Override
+    public List<PropertyDTO> getAllProperties() {
+       List<PropertyEntity> propertyEntityList = propertyRepository.findAll();
+       List<PropertyDTO> propertyDTOList = new ArrayList<>();
+       for (PropertyEntity propertyEntity : propertyEntityList) {
+           PropertyDTO  propertyDTO = propertyConverter.EntitytoDTO(propertyEntity);
+           propertyDTOList.add(propertyDTO);
+       }
+        return propertyDTOList;
+    }
+
 }
