@@ -39,6 +39,12 @@ public class PropertyController {
         return new ResponseEntity<>(propertyDTO, HttpStatus.OK);
     }
 
+    @PatchMapping ("/properties/update-property/{propertyId}")
+    public ResponseEntity<PropertyDTO> updatePropertyByPatch(@RequestBody PropertyDTO propertyDTO,@PathVariable Long propertyId) {
+        propertyDTO = propertyService.updatePropertyByPatch(propertyDTO, propertyId);
+        return new ResponseEntity<>(propertyDTO, HttpStatus.OK);
+    }
+
 
 
 }

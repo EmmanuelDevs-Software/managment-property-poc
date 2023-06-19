@@ -60,5 +60,44 @@ public class PropertyServiceImpl implements PropertyService {
         return dto;
     }
 
+    @Override
+    public PropertyDTO updatePropertyByPatch(PropertyDTO propertyDTO, Long propertyId) {
+        Optional<PropertyEntity> optionalEntity = propertyRepository.findById(propertyId);
+        PropertyDTO dto = null;
+        if (optionalEntity.isPresent()) {
+            PropertyEntity propertyEntity = optionalEntity.get(); // Data from the database
+            if (propertyDTO.getDescription() != null) {
+                propertyEntity.setDescription(propertyDTO.getDescription());
+            }
+            if (propertyDTO.getPrice() != null) {
+                propertyEntity.setPrice(propertyDTO.getPrice());
+            }
+            if (propertyDTO.getAddress() != null) {
+                propertyEntity.setAddress(propertyDTO.getAddress());
+            }
+            if(propertyDTO.getOwner() != null) {
+                propertyEntity.setOwner(propertyDTO.getOwner());
+            }
+            if (propertyDTO.getOwnerName() != null) {
+                propertyEntity.setOwnerName(propertyDTO.getOwnerName());
+            }
+            if (propertyDTO.getOwnerEmail() != null) {
+                propertyEntity.setOwnerEmail(propertyDTO.getOwnerEmail());
+            }
+            if(propertyDTO.getTitle() != null) {
+                propertyEntity.setTitle(propertyDTO.getTitle());
+            }
+            propertyRepository.save(propertyEntity); // Save the updated entity
+            dto = propertyConverter.convertEntitytoDTO(propertyEntity);
+        }
+        else {
+            throw new IllegalArgumentException("Property not found for id: " + propertyId);
+        }
+
+        return dto;
+    }
+
+
+
 
 }
