@@ -97,7 +97,14 @@ public class PropertyServiceImpl implements PropertyService {
         return dto;
     }
 
-
-
-
+    @Override
+    public void deleteProperty(Long propertyId) {
+        Optional<PropertyEntity> optionalEntity = propertyRepository.findById(propertyId);
+        if (optionalEntity.isPresent()) {
+            propertyRepository.deleteById(propertyId);
+        }
+        else {
+            throw new IllegalArgumentException("Property not found for id: " + propertyId);
+        }
+    }
 }
