@@ -30,12 +30,12 @@ public class PropertyServiceImpl implements PropertyService {
 
     @Override
     public List<PropertyDTO> getAllProperties() {
-       List<PropertyEntity> propertyEntityList = propertyRepository.findAll();
-       List<PropertyDTO> propertyDTOList = new ArrayList<>();
-       for (PropertyEntity propertyEntity : propertyEntityList) {
-           PropertyDTO  propertyDTO = propertyConverter.convertEntitytoDTO(propertyEntity);
-           propertyDTOList.add(propertyDTO);
-       }
+        List<PropertyEntity> propertyEntityList = propertyRepository.findAll();
+        List<PropertyDTO> propertyDTOList = new ArrayList<>();
+        for (PropertyEntity propertyEntity : propertyEntityList) {
+            PropertyDTO propertyDTO = propertyConverter.convertEntitytoDTO(propertyEntity);
+            propertyDTOList.add(propertyDTO);
+        }
         return propertyDTOList;
     }
 
@@ -75,7 +75,7 @@ public class PropertyServiceImpl implements PropertyService {
             if (propertyDTO.getAddress() != null) {
                 propertyEntity.setAddress(propertyDTO.getAddress());
             }
-            if(propertyDTO.getOwner() != null) {
+            if (propertyDTO.getOwner() != null) {
                 propertyEntity.setOwner(propertyDTO.getOwner());
             }
             if (propertyDTO.getOwnerName() != null) {
@@ -84,13 +84,12 @@ public class PropertyServiceImpl implements PropertyService {
             if (propertyDTO.getOwnerEmail() != null) {
                 propertyEntity.setOwnerEmail(propertyDTO.getOwnerEmail());
             }
-            if(propertyDTO.getTitle() != null) {
+            if (propertyDTO.getTitle() != null) {
                 propertyEntity.setTitle(propertyDTO.getTitle());
             }
             propertyRepository.save(propertyEntity); // Save the updated entity
             dto = propertyConverter.convertEntitytoDTO(propertyEntity);
-        }
-        else {
+        } else {
             throw new IllegalArgumentException("Property not found for id: " + propertyId);
         }
 
@@ -102,8 +101,7 @@ public class PropertyServiceImpl implements PropertyService {
         Optional<PropertyEntity> optionalEntity = propertyRepository.findById(propertyId);
         if (optionalEntity.isPresent()) {
             propertyRepository.deleteById(propertyId);
-        }
-        else {
+        } else {
             throw new IllegalArgumentException("Property not found for id: " + propertyId);
         }
     }

@@ -1,4 +1,5 @@
 package com.chadwick.propertymanagement.controller;
+
 import com.chadwick.propertymanagement.dto.PropertyDTO;
 import com.chadwick.propertymanagement.service.PropertyService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,22 +35,21 @@ public class PropertyController {
     }
 
     @PutMapping("/properties/{propertyId}")
-    public ResponseEntity<PropertyDTO> updateProperty(@RequestBody PropertyDTO propertyDTO,@PathVariable Long propertyId) {
+    public ResponseEntity<PropertyDTO> updateProperty(@RequestBody PropertyDTO propertyDTO, @PathVariable Long propertyId) {
         propertyDTO = propertyService.updateProperty(propertyDTO, propertyId);
         return new ResponseEntity<>(propertyDTO, HttpStatus.OK);
     }
 
-    @PatchMapping ("/properties/update-property/{propertyId}")
-    public ResponseEntity<PropertyDTO> updatePropertyByPatch(@RequestBody PropertyDTO propertyDTO,@PathVariable Long propertyId) {
+    @PatchMapping("/properties/update-property/{propertyId}")
+    public ResponseEntity<PropertyDTO> updatePropertyByPatch(@RequestBody PropertyDTO propertyDTO, @PathVariable Long propertyId) {
         propertyDTO = propertyService.updatePropertyByPatch(propertyDTO, propertyId);
         return new ResponseEntity<>(propertyDTO, HttpStatus.OK);
     }
 
 
-@DeleteMapping("/properties/{propertyId}")
-public ResponseEntity<Void> deleteProperty(@PathVariable Long propertyId) {
-    propertyService.deleteProperty(propertyId);
-    return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
-}
-
+    @DeleteMapping("/properties/{propertyId}")
+    public ResponseEntity<Void> deleteProperty(@PathVariable Long propertyId) {
+        propertyService.deleteProperty(propertyId);
+        return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
+    }
 }
