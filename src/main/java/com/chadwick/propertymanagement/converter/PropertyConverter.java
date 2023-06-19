@@ -22,7 +22,7 @@ public class PropertyConverter {
         return propertyEntity;
     };
 
-    public PropertyDTO EntitytoDTO(PropertyEntity propertyEntity) {
+    public PropertyDTO convertEntitytoDTO(PropertyEntity propertyEntity) {
         PropertyDTO propertyDTO = new PropertyDTO();
         propertyDTO.setId(propertyEntity.getId());
         propertyDTO.setTitle(propertyEntity.getTitle());
