@@ -35,7 +35,5 @@ public class PropertyConverter {
         propertyDTO.setAddress(propertyEntity.getAddress());
         propertyDTO.setPrice(propertyEntity.getPrice());
         return propertyDTO;
-    }
-
-    ;
+    };
 }
