@@ -3,6 +3,8 @@ package com.chadwick.propertymanagement.service.impl;
 import com.chadwick.propertymanagement.converter.PropertyConverter;
 import com.chadwick.propertymanagement.dto.PropertyDTO;
 import com.chadwick.propertymanagement.entity.PropertyEntity;
+import com.chadwick.propertymanagement.exception.BusinessException;
+import com.chadwick.propertymanagement.exception.ErrorModel;
 import com.chadwick.propertymanagement.repository.PropertyRepository;
 import com.chadwick.propertymanagement.service.PropertyService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +21,8 @@ public class PropertyServiceImpl implements PropertyService {
     private PropertyConverter propertyConverter;
     @Autowired
     private PropertyRepository propertyRepository;
+
+    List<ErrorModel> errorModelList = new ArrayList<>();
 
     private String errorMssage = "Property not found for id: ";
 
@@ -57,7 +61,11 @@ public class PropertyServiceImpl implements PropertyService {
             propertyRepository.save(propertyEntity); // Save the updated entity
             dto = propertyConverter.convertEntitytoDTO(propertyEntity);
         } else {
-            throw new IllegalArgumentException(errorMssage + propertyId);
+            ErrorModel errorModel = new ErrorModel();
+            errorModel.setCode("404");
+            errorModel.setMessage("Cannot update the property with id: " + propertyId);
+            errorModelList.add(errorModel);
+            throw new BusinessException(errorModelList);
         }
         return dto;
     }
@@ -92,7 +100,11 @@ public class PropertyServiceImpl implements PropertyService {
             propertyRepository.save(propertyEntity); // Save the updated entity
             dto = propertyConverter.convertEntitytoDTO(propertyEntity);
         } else {
-            throw new IllegalArgumentException(errorMssage + propertyId);
+            ErrorModel errorModel = new ErrorModel();
+            errorModel.setCode("404");
+            errorModel.setMessage("Cannot update the property with id: " + propertyId);
+            errorModelList.add(errorModel);
+            throw new BusinessException(errorModelList);
         }
 
         return dto;
@@ -104,7 +116,11 @@ public class PropertyServiceImpl implements PropertyService {
         if (optionalEntity.isPresent()) {
             propertyRepository.deleteById(propertyId);
         } else {
-            throw new IllegalArgumentException(errorMssage + propertyId);
+            ErrorModel errorModel = new ErrorModel();
+            errorModel.setCode("404");
+            errorModel.setMessage("Property not found for id: " + propertyId);
+            errorModelList.add(errorModel);
+            throw new BusinessException(errorModelList);
         }
     }
 }

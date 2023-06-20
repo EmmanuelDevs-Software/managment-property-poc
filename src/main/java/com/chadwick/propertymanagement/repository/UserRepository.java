@@ -14,4 +14,5 @@ public interface UserRepository extends JpaRepository<UserEntity, Long> {
      * findByUserEmailAndUserPassword is the query using jpa can change the and for or
      */
     Optional<UserEntity> findByUserEmailAndUserPassword(String userEmail, String userPassword);
+    Optional<UserEntity> findByUserEmail(String userEmail);
 }
