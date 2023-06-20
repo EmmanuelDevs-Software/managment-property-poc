@@ -3,6 +3,7 @@ package com.chadwick.propertymanagement.controller;
 import com.chadwick.propertymanagement.dto.PropertyDTO;
 import com.chadwick.propertymanagement.service.PropertyService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -15,6 +16,9 @@ public class PropertyController {
 
     @Autowired
     private PropertyService propertyService;
+
+    @Value("${pms.dummy}") //From application-dev.yml
+    private String dummy;
 
     @GetMapping("/connection")
     public String index() {
@@ -30,6 +34,7 @@ public class PropertyController {
 
     @GetMapping("/properties")
     public ResponseEntity<List<PropertyDTO>> getAllProperties() {
+        // System.out.println(dummy); //From application-local.yml
         List<PropertyDTO> propertyList = propertyService.getAllProperties();
         return new ResponseEntity<>(propertyList, HttpStatus.OK);
     }
