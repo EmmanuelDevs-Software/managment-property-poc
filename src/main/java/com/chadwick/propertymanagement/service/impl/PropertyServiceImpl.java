@@ -20,6 +20,8 @@ public class PropertyServiceImpl implements PropertyService {
     @Autowired
     private PropertyRepository propertyRepository;
 
+    private String errorMssage = "Property not found for id: ";
+
     @Override
     public PropertyDTO saveProperty(PropertyDTO propertyDTO) {
         PropertyEntity propertyEntity = propertyConverter.convertDTOtoEntity(propertyDTO);
@@ -55,7 +57,7 @@ public class PropertyServiceImpl implements PropertyService {
             propertyRepository.save(propertyEntity); // Save the updated entity
             dto = propertyConverter.convertEntitytoDTO(propertyEntity);
         } else {
-            throw new IllegalArgumentException("Property not found for id: " + propertyId);
+            throw new IllegalArgumentException(errorMssage + propertyId);
         }
         return dto;
     }
@@ -90,7 +92,7 @@ public class PropertyServiceImpl implements PropertyService {
             propertyRepository.save(propertyEntity); // Save the updated entity
             dto = propertyConverter.convertEntitytoDTO(propertyEntity);
         } else {
-            throw new IllegalArgumentException("Property not found for id: " + propertyId);
+            throw new IllegalArgumentException(errorMssage + propertyId);
         }
 
         return dto;
@@ -102,7 +104,7 @@ public class PropertyServiceImpl implements PropertyService {
         if (optionalEntity.isPresent()) {
             propertyRepository.deleteById(propertyId);
         } else {
-            throw new IllegalArgumentException("Property not found for id: " + propertyId);
+            throw new IllegalArgumentException(errorMssage + propertyId);
         }
     }
 }

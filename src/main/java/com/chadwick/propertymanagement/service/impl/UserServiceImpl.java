@@ -8,6 +8,8 @@ import com.chadwick.propertymanagement.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class UserServiceImpl implements UserService {
 
@@ -26,6 +28,14 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDTO login(String userEmail, String userPassword) {
-        return null;
+        UserDTO userDTO = null;
+       Optional<UserEntity> optUserEntity = userRepository.findByUserEmailAndUserPassword(userEmail, userPassword);
+       if(optUserEntity.isPresent()) {
+           userDTO = userConverter.convertEntitytoDTO(optUserEntity.get());
+           return userDTO;
+       } else {
+           return null;
+       }
+
     }
 }
