@@ -15,8 +15,11 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/v1/user")
 public class UserController {
 
-    @Autowired
-    private UserService userService;
+    private final UserService userService;
+
+    public UserController(UserService userService) {
+        this.userService = userService;
+    }
 
     @PostMapping("/register")
     public ResponseEntity<UserDTO> register(@Valid @RequestBody UserDTO userDTO) {
@@ -24,7 +27,7 @@ public class UserController {
         return new ResponseEntity<>(userDTO, HttpStatus.CREATED);
     }
 
-    @PostMapping("/login")
+    @PostMapping(path = "/login", produces = "application/json", consumes = "application/json")
     public ResponseEntity<UserDTO> login(@RequestBody UserDTO userDTO) {
         userDTO = userService.login(userDTO.getUserEmail(), userDTO.getUserPassword());
         return new ResponseEntity<>(userDTO, HttpStatus.OK);

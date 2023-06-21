@@ -7,7 +7,7 @@ import com.chadwick.propertymanagement.exception.BusinessException;
 import com.chadwick.propertymanagement.exception.ErrorModel;
 import com.chadwick.propertymanagement.repository.UserRepository;
 import com.chadwick.propertymanagement.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -15,12 +15,16 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
+@Slf4j
 public class UserServiceImpl implements UserService {
 
-    @Autowired
-    private UserRepository userRepository;
-    @Autowired
-    private UserConverter userConverter;
+    private final UserRepository userRepository;
+    private final UserConverter userConverter;
+
+    public UserServiceImpl(UserRepository userRepository, UserConverter userConverter) {
+        this.userRepository = userRepository;
+        this.userConverter = userConverter;
+    }
 
     @Override
     public UserDTO register(UserDTO userDTO) {

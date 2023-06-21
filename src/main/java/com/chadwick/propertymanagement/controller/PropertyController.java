@@ -2,8 +2,7 @@ package com.chadwick.propertymanagement.controller;
 
 import com.chadwick.propertymanagement.dto.PropertyDTO;
 import com.chadwick.propertymanagement.service.PropertyService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
+//import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,11 +13,14 @@ import java.util.List;
 @RequestMapping("/api/v1")
 public class PropertyController {
 
-    @Autowired
-    private PropertyService propertyService;
+    private final PropertyService propertyService;
 
-    @Value("${pms.dummy}") //From application-dev.yml
-    private String dummy;
+   // @Value("${pms.dummy}") //From application-dev.yml
+   // private String dummy;
+
+    public PropertyController(PropertyService propertyService) {
+        this.propertyService = propertyService;
+    }
 
     @GetMapping("/connection")
     public String index() {
