@@ -1,3 +1,13 @@
 spring:
   profiles:
-    active: local
+    active: dev
+logging:
+  level:
+    org.springframework.web: DEBUG
+    org.hibernate: ERROR
+    root: warn
+    com.chadwick: trace
+springdoc:
+  swagger-ui:
+    path: /swagger-ui-custom.html
+    operationsSorter: method
