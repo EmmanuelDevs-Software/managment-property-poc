@@ -11,3 +11,11 @@ springdoc:
   swagger-ui:
     path: /swagger-ui-custom.html
     operationsSorter: method
+management:
+  endpoints:
+    jmx:
+      exposure:
+        include: health,metrics,info,env,beans,configprops
+    web:
+      exposure:
+        include: health,info,metrics,env,beans,configprops
