@@ -2,6 +2,7 @@ package com.chadwick.propertymanagement.controller;
 
 import com.chadwick.propertymanagement.dto.UserDTO;
 import com.chadwick.propertymanagement.service.UserService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,7 +19,7 @@ public class UserController {
     private UserService userService;
 
     @PostMapping("/register")
-    public ResponseEntity<UserDTO> register(@RequestBody UserDTO userDTO) {
+    public ResponseEntity<UserDTO> register(@Valid @RequestBody UserDTO userDTO) {
         userDTO = userService.register(userDTO);
         return new ResponseEntity<>(userDTO, HttpStatus.CREATED);
     }
