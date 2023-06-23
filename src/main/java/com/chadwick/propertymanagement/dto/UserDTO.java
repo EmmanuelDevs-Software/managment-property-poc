@@ -29,4 +29,9 @@ public class UserDTO {
     @Size(min = 4, max = 50, message = "owner email must be between 4 and 50 characters")
     private String userPassword;
 
+    private String houseNo;
+    private String street;
+    private String city;
+    private String postalCode;
+    private String country;
 }
